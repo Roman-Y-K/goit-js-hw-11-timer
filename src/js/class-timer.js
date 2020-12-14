@@ -1,9 +1,9 @@
 import { refs } from './refs'
 
 export class Timer {
-    constructor(a) {
+    constructor(date) {
         this.isActive = false;
-        this.targetDate = a;
+        this.targetDate = date;
         this.timerId = null;
     };
 
@@ -16,16 +16,23 @@ export class Timer {
 
         this.isActive = true;
 
+        this.starting();
+
         this.timerId =  setInterval(() => {
            
-            const currentDate = Date.now();
-            const delta = this.targetDate - currentDate;
-            this.updateInterface(delta);
+            this.starting();
                       
-          
         }, 1000);             
 
     };
+
+    starting() {
+
+        const currentDate = Date.now();
+        const delta = this.targetDate - currentDate;
+        this.updateInterface(delta);
+        
+    }
 
     stop() { 
         clearInterval(this.timerId);
